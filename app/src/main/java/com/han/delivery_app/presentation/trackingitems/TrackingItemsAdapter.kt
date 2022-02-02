@@ -16,7 +16,15 @@ import java.util.*
 
 class TrackingItemsAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var data: List<Pair<TrackingItem, TrackingInformation>> = emptyList()
+    var onClickItemListener: ((TrackingItem, TrackingInformation) -> Unit)? = null
     inner class ViewHolder(private val binding: ItemTrackingBinding): RecyclerView.ViewHolder(binding.root){
+        init {
+            binding.root.setOnClickListener {
+                data.getOrNull(adapterPosition)?.let { (item, information) ->
+                    onClickItemListener?.invoke(item, information)
+                }
+            }
+        }
         fun bind(company: ShippingCompany, information: TrackingInformation){
             binding.updatedAtTextView.text = Date(information.lastDetail?.time ?: System.currentTimeMillis()).toReadableDateString()
             binding.levelLabelTextView.text = information.level?.label

@@ -5,9 +5,10 @@
       <map>
         <entry key="..\:/Users/HanKwanJin/AndroidStudioProjects/delivery_app/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/HanKwanJin/AndroidStudioProjects/delivery_app/app/src/main/res/layout/fragment_add_tracking_item.xml" value="0.22" />
-        <entry key="..\:/Users/HanKwanJin/AndroidStudioProjects/delivery_app/app/src/main/res/layout/fragment_tracking_history.xml" value="0.15121580547112462" />
+        <entry key="..\:/Users/HanKwanJin/AndroidStudioProjects/delivery_app/app/src/main/res/layout/fragment_tracking_history.xml" value="0.25" />
         <entry key="..\:/Users/HanKwanJin/AndroidStudioProjects/delivery_app/app/src/main/res/layout/fragment_tracking_items.xml" value="0.16" />
         <entry key="..\:/Users/HanKwanJin/AndroidStudioProjects/delivery_app/app/src/main/res/layout/item_tracking.xml" value="0.33" />
+        <entry key="..\:/Users/HanKwanJin/AndroidStudioProjects/delivery_app/app/src/main/res/layout/item_tracking_history.xml" value="0.22146739130434784" />
       </map>
     </option>
   </component>

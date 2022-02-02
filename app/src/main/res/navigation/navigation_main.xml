@@ -34,6 +34,13 @@
         android:name="com.han.delivery_app.presentation.trackinghistory.TrackingHistoryFragment"
         android:label="배송 상세"
         tools:layout="@layout/fragment_tracking_history">
+        <argument
+            android:name="item"
+            app:argType="com.han.delivery_app.data.entity.TrackingItem" />
+
+        <argument
+            android:name="information"
+            app:argType="com.han.delivery_app.data.entity.TrackingInformation" />
 
     </fragment>
 

@@ -5,19 +5,21 @@ import com.han.delivery_app.BuildConfig
 import com.han.delivery_app.data.api.SweetTrackerApi
 import com.han.delivery_app.data.api.Url
 import com.han.delivery_app.data.db.AppDatabase
+import com.han.delivery_app.data.entity.TrackingInformation
+import com.han.delivery_app.data.entity.TrackingItem
 import com.han.delivery_app.data.preference.PreferenceManager
 import com.han.delivery_app.data.preference.SharedPreferenceManager
-import com.han.delivery_app.data.repository.ShippingCompanyRepository
-import com.han.delivery_app.data.repository.ShippingCompanyRepositoryImpl
-import com.han.delivery_app.data.repository.TrackingItemRepository
-import com.han.delivery_app.data.repository.TrackingItemRepositoryImpl
+import com.han.delivery_app.data.repository.*
 import com.han.delivery_app.presentation.addtrackingitem.AddTrackingItemFragment
 import com.han.delivery_app.presentation.addtrackingitem.AddTrackingItemPresenter
 import com.han.delivery_app.presentation.addtrackingitem.AddTrackingItemsContract
+import com.han.delivery_app.presentation.trackinghistory.TrackingHistoryContract
 import com.han.delivery_app.presentation.trackinghistory.TrackingHistoryFragment
+import com.han.delivery_app.presentation.trackinghistory.TrackingHistoryPresenter
 import com.han.delivery_app.presentation.trackingitems.TrackingItemsContract
 import com.han.delivery_app.presentation.trackingitems.TrackingItemsFragment
 import com.han.delivery_app.presentation.trackingitems.TrackingItemsPresenter
+import com.han.delivery_app.work.AppWorkerFactory
 import kotlinx.coroutines.Dispatchers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -61,10 +63,12 @@ val appModule = module{
     single { androidContext().getSharedPreferences("preference", Activity.MODE_PRIVATE) }
     single<PreferenceManager> { SharedPreferenceManager(get()) }
     //Repository
-    single<TrackingItemRepository> { TrackingItemRepositoryImpl(get(),get(), get()) }
+    single<TrackingItemRepository> { TrackingItemRepositoryStub() }
+    //single<TrackingItemRepository> { TrackingItemRepositoryImpl(get(),get(), get()) }
     single<ShippingCompanyRepository> { ShippingCompanyRepositoryImpl(get(),get(),get(),get())}
 
-
+    // Work
+    single { AppWorkerFactory(get(), get()) }
 
     //Presentation
     scope<TrackingItemsFragment>{
@@ -76,7 +80,9 @@ val appModule = module{
         }
     }
     scope<TrackingHistoryFragment> {
-        //todo
+        scoped<TrackingHistoryContract.Presenter> { (trackingItem: TrackingItem, trackingInformation: TrackingInformation) ->
+            TrackingHistoryPresenter(getSource(), get(), trackingItem, trackingInformation)
+        }
     }
 
 }
